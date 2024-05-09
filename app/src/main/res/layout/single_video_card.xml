@@ -36,28 +36,62 @@
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
+    <View
+        android:id="@+id/dotViewC"
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dot_background"
+        app:layout_constraintStart_toEndOf="@id/channel"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+
     <TextView
         android:id="@+id/views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" • 1.2M views"
-        app:layout_constraintStart_toEndOf="@id/channel"
+        android:layout_marginStart="4dp"
+        android:text="1.2M views"
+        app:layout_constraintStart_toEndOf="@id/dotViewC"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <View
+        android:id="@+id/dotViewV"
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dot_background"
+        app:layout_constraintStart_toEndOf="@id/views"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <TextView
         android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" • 1 week ago"
-        app:layout_constraintStart_toEndOf="@id/views"
+        android:layout_marginStart="4dp"
+        android:text="1 week ago"
+        app:layout_constraintStart_toEndOf="@id/dotViewV"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <View
+        android:id="@+id/dotViewA"
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dot_background"
+        app:layout_constraintStart_toEndOf="@id/age"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <TextView
         android:id="@+id/likes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" • 20 likes"
-        app:layout_constraintStart_toEndOf="@id/age"
+        android:layout_marginStart="4dp"
+        android:text="20 likes"
+        app:layout_constraintStart_toEndOf="@id/dotViewA"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <View
@@ -65,7 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_margin="8dp"
-        android:background="@color/black"
+        android:background="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/channel" />
 

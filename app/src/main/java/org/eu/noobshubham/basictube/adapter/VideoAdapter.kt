@@ -1,5 +1,6 @@
 package org.eu.noobshubham.basictube.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import org.eu.noobshubham.basictube.R
 import org.eu.noobshubham.basictube.model.BasicTubeVideo
 
-class  VideoAdapter() {}
-
-/*
 class VideoAdapter(private val context: Context, private val videoList: List<BasicTubeVideo>) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
 
     inner class VideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val thumbnailImageView: ImageView = itemView.findViewById(R.id.videoView)
-        val titleTextView: TextView = itemView.findViewById(R.id.title)
         val channelTextView: TextView = itemView.findViewById(R.id.channel)
-        val viewsTextView: TextView = itemView.findViewById(R.id.views)
-        val ageTextView: TextView = itemView.findViewById(R.id.age)
+        val titleTextView: TextView = itemView.findViewById(R.id.title)
         val likesTextView: TextView = itemView.findViewById(R.id.likes)
-        val dividerView: View = itemView.findViewById(R.id.divider)
+        val viewsTextView: TextView = itemView.findViewById(R.id.views)
+        val videoView: ImageView = itemView.findViewById(R.id.videoView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
@@ -30,20 +26,19 @@ class VideoAdapter(private val context: Context, private val videoList: List<Bas
         return VideoViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         val video = videoList[position]
 
         // Set data to views
-        holder.thumbnailImageView.setImageResource(video.thumbnail)
-        holder.titleTextView.text = video.title
         holder.channelTextView.text = video.channel
-        holder.viewsTextView.text = video.views
-        holder.ageTextView.text = video.age
-        holder.likesTextView.text = video.likes
+        holder.titleTextView.text = video.title
+        holder.likesTextView.text = video.likes.toString() + " Likes"
+        holder.viewsTextView.text = video.views.toString() + " Views"
+        holder.videoView.setImageResource(R.drawable.thumbnail)
     }
 
     override fun getItemCount(): Int {
         return videoList.size
     }
 }
-*/
