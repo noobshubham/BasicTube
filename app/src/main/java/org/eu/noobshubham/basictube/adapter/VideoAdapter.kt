@@ -5,8 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import androidx.recyclerview.widget.RecyclerView
 import org.eu.noobshubham.basictube.R
 import org.eu.noobshubham.basictube.model.BasicTubeVideo
@@ -18,7 +20,7 @@ class VideoAdapter(private val context: Context, private val videoList: List<Bas
         val titleTextView: TextView = itemView.findViewById(R.id.title)
         val likesTextView: TextView = itemView.findViewById(R.id.likes)
         val viewsTextView: TextView = itemView.findViewById(R.id.views)
-        val videoView: ImageView = itemView.findViewById(R.id.videoView)
+        val playerView: PlayerView = itemView.findViewById(R.id.videoView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
@@ -26,7 +28,7 @@ class VideoAdapter(private val context: Context, private val videoList: List<Bas
         return VideoViewHolder(view)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         val video = videoList[position]
 
@@ -35,7 +37,14 @@ class VideoAdapter(private val context: Context, private val videoList: List<Bas
         holder.titleTextView.text = video.title
         holder.likesTextView.text = video.likes.toString() + " Likes"
         holder.viewsTextView.text = video.views.toString() + " Views"
-        holder.videoView.setImageResource(R.drawable.thumbnail)
+
+        // Set up click listener on PlayerView
+        val player = ExoPlayer.Builder(context).build()
+        holder.playerView.player = player
+        holder.playerView.controllerAutoShow = false
+        val mediaItem = MediaItem.fromUri(video.url)
+        player.setMediaItem(mediaItem)
+        player.prepare()
     }
 
     override fun getItemCount(): Int {
