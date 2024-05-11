@@ -6,15 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.OptIn
 import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import androidx.recyclerview.widget.RecyclerView
 import org.eu.noobshubham.basictube.R
 import org.eu.noobshubham.basictube.model.BasicTubeVideo
 
-class VideoAdapter(private val context: Context, private val videoList: List<BasicTubeVideo>) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
-
+class VideoAdapter(private val context: Context, private var videoList: List<BasicTubeVideo>) :
+    RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
     inner class VideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val channelTextView: TextView = itemView.findViewById(R.id.channel)
         val titleTextView: TextView = itemView.findViewById(R.id.title)
@@ -28,6 +30,7 @@ class VideoAdapter(private val context: Context, private val videoList: List<Bas
         return VideoViewHolder(view)
     }
 
+    @OptIn(UnstableApi::class)
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         val video = videoList[position]
@@ -38,16 +41,27 @@ class VideoAdapter(private val context: Context, private val videoList: List<Bas
         holder.likesTextView.text = video.likes.toString() + " Likes"
         holder.viewsTextView.text = video.views.toString() + " Views"
 
-        // Set up click listener on PlayerView
-        val player = ExoPlayer.Builder(context).build()
-        holder.playerView.player = player
+        // Set ExoPlayer for each VideoView
+        val exoPlayer = ExoPlayer.Builder(context).build()
+        holder.playerView.player = exoPlayer
         holder.playerView.controllerAutoShow = false
-        val mediaItem = MediaItem.fromUri(video.url)
-        player.setMediaItem(mediaItem)
-        player.prepare()
+
+        // Prepare video URL and other configurations for ExoPlayer
+        val videoUrl = video.url
+        // Configure ExoPlayer with video URL
+        val mediaItem = MediaItem.fromUri(videoUrl)
+        exoPlayer.setMediaItem(mediaItem)
+        // Prepare ExoPlayer
+        exoPlayer.playWhenReady = false
+        // exoPlayer.prepare()
     }
 
     override fun getItemCount(): Int {
         return videoList.size
+    }
+
+    fun updateVideos(newVideos: List<BasicTubeVideo>) {
+        videoList = newVideos
+        notifyDataSetChanged()
     }
 }
